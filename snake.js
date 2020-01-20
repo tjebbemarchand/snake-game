@@ -81,7 +81,7 @@ function draw() {
         context.fillStyle = i == 0 ? "green" : "white";
         context.fillRect(snake[i].x, snake[i].y, box, box);
 
-        context.strokeSyle = "red";
+        context.strokeStyle = "red";
         context.strokeRect(snake[i].x, snake[i].y, box, box);
     }
 
