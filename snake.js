@@ -34,7 +34,7 @@ snake[0] = {
 };
 
 // Create food.
-const food = {
+let food = {
     x: Math.floor(Math.random() * 17 + 1) * box,
     y: Math.floor(Math.random() * 15 + 3) * box
 };
@@ -46,16 +46,16 @@ let score = 0;
 let direction = null;
 
 function moveDirection(event) {
-    if (event.keyCode === 37 && direction !== "RIGHT") {
+    if (event.keyCode == 37 && direction !== "RIGHT") {
         direction = "LEFT";
         leftAudio.play();
-    } else if (event.keyCode === 38 && direction !== "DOWN") {
+    } else if (event.keyCode == 38 && direction !== "DOWN") {
         direction = "UP";
         upAudio.play();
-    } else if (event.keyCode === 39 && direction !== "LEFT") {
-        direction = "RIFHT";
+    } else if (event.keyCode == 39 && direction !== "LEFT") {
+        direction = "RIGHT";
         rightAudio.play();
-    } else if (event.keyCode === 40 && direction !== "UP") {
+    } else if (event.keyCode == 40 && direction !== "UP") {
         direction = "DOWN";
         downAudio.play();
     }
@@ -64,7 +64,7 @@ function moveDirection(event) {
 // Check collision
 function collision(head, array) {
     for (let i = 0; i < array.length; i++) {
-        if (head.x === array[i].x && head.y == array[i].y) {
+        if (head.x == array[i].x && head.y == array[i].y) {
             return true;
         }
         return false;
@@ -78,7 +78,7 @@ function draw() {
 
     // Draw snake.
     for (let i = 0; i < snake.length; i++) {
-        context.fillStyle = i === 0 ? "green" : "white";
+        context.fillStyle = i == 0 ? "green" : "white";
         context.fillRect(snake[i].x, snake[i].y, box, box);
 
         context.strokeSyle = "red";
@@ -93,13 +93,13 @@ function draw() {
     let snakeY = snake[0].y;
 
     // Determine direction.
-    if (direction === "LEFT") snakeX -= box;
-    if (direction === "UP") snakeY -= box;
-    if (direction === "RIGHT") snakeX += box;
-    if (direction === "DOWN") snakeY += box;
+    if (direction == "LEFT") snakeX -= box;
+    if (direction == "UP") snakeY -= box;
+    if (direction == "RIGHT") snakeX += box;
+    if (direction == "DOWN") snakeY += box;
 
     // If snake eats food.
-    if (snakeX === food.x && snake.y === snakeY) {
+    if (snakeX == food.x && snakeY == food.y) {
         score++;
         eatAudio.play();
         food = {
@@ -116,7 +116,7 @@ function draw() {
     // Add new head.
     let newHead = {
         x: snakeX,
-        Y: snakeY
+        y: snakeY
     };
 
     // Game over.
@@ -127,7 +127,7 @@ function draw() {
         snakeY > 17 * box ||
         collision(newHead, snake)
     ) {
-        deadAudio();
+        deadAudio.play();
         clearInterval(game);
     }
 
@@ -140,7 +140,7 @@ function draw() {
 }
 
 // Draw every 100ms
-let game = setInterval(draw, 500);
+let game = setInterval(draw, 100);
 
 // Listen for keyboard events.
 document.addEventListener("keydown", moveDirection);
