@@ -42,6 +42,15 @@ function moveDirection(event) {
     }
 }
 
+// Check collision
+function collision(head, array) {
+    for (let i = 0; i < array.length; i++) {
+        if (head.x === array[i].x && head.y == array[i].y) {
+            return true;
+        }
+    }
+}
+
 // Draw to canvas.
 function draw() {
     // Draw ground image.
@@ -88,6 +97,17 @@ function draw() {
         x: snakeX,
         Y: snakeY
     };
+
+    // Game over.
+    if (
+        snakeX < box ||
+        snakeX > 17 * box ||
+        snakeY < 3 * box ||
+        snakeY > 17 * box ||
+        collision(newHead, snake)
+    ) {
+        clearInterval(game);
+    }
 
     snake.unshift(newHead);
 
