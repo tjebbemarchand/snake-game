@@ -34,7 +34,7 @@ snake[0] = {
 };
 
 // Create food.
-let food = {
+const food = {
     x: Math.floor(Math.random() * 17 + 1) * box,
     y: Math.floor(Math.random() * 15 + 3) * box
 };
@@ -102,10 +102,8 @@ function draw() {
     if (snakeX == food.x && snakeY == food.y) {
         score++;
         eatAudio.play();
-        food = {
-            x: Math.floor(Math.random() * 17 + 1) * box,
-            y: Math.floor(Math.random() * 15 + 3) * box
-        };
+        food.x = Math.floor(Math.random() * 17 + 1) * box;
+        food.y = Math.floor(Math.random() * 15 + 3) * box;
 
         // We don't remove the tail.
     } else {
