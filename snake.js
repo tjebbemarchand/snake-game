@@ -138,7 +138,7 @@ function draw() {
 }
 
 // Draw every 100ms
-let game = setInterval(draw, 100);
+let game = setInterval(draw, 150);
 
 // Listen for keyboard events.
 document.addEventListener("keydown", moveDirection);
