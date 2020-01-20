@@ -31,13 +31,13 @@ let score = 0;
 let direction = null;
 
 function moveDirection(event) {
-    if (event.keyCode === 37) {
+    if (event.keyCode === 37 && direction !== "RIGHT") {
         direction = "LEFT";
-    } else if (event.keyCode === 38) {
+    } else if (event.keyCode === 38 && direction !== "DOWN") {
         direction = "UP";
-    } else if (event.keyCode === 39) {
+    } else if (event.keyCode === 39 && direction !== "LEFT") {
         direction = "RIFHT";
-    } else if (event.keyCode === 40) {
+    } else if (event.keyCode === 40 && direction !== "UP") {
         direction = "DOWN";
     }
 }
@@ -60,22 +60,33 @@ function draw() {
     context.drawImage(foodImg, food.x, food.y);
 
     // Old head position.
-    let snakeHeadX = snake[0].x;
-    let snakeHeadY = snake[0].y;
-
-    // Remove tail.
-    snake.pop();
+    let snakeX = snake[0].x;
+    let snakeY = snake[0].y;
 
     // Determine direction.
-    if (direction === "LEFT") snakeHeadX -= box;
-    if (direction === "UP") snakeHeadY -= box;
-    if (direction === "RIGHT") snakeHeadX += box;
-    if (direction === "DOWN") snakeHeadY += box;
+    if (direction === "LEFT") snakeX -= box;
+    if (direction === "UP") snakeY -= box;
+    if (direction === "RIGHT") snakeX += box;
+    if (direction === "DOWN") snakeY += box;
+
+    // If snake eats food.
+    if (snakeX === food.x && snake.y === snakeY) {
+        score++;
+        food = {
+            x: Math.floor(Math.random() * 17 + 1) * box,
+            y: Math.floor(Math.random() * 15 + 3) * box
+        };
+
+        // We don't remove the tail.
+    } else {
+        // Remove tail.
+        snake.pop();
+    }
 
     // Add new head.
     let newHead = {
-        x: snakeHeadX,
-        Y: snakeHeadY
+        x: snakeX,
+        Y: snakeY
     };
 
     snake.unshift(newHead);
